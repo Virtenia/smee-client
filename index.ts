@@ -78,8 +78,16 @@ class SmeeClient {
 
     delete data.query;
 
-    const body = JSON.stringify(data.body);
+    if (data.bodyEncoding !== "base64" || typeof data.body !== "string") {
+      this.#logger.error(
+        `[smee] Incompatible server: expected base64-encoded body but received bodyEncoding=${JSON.stringify(data.bodyEncoding)}, body type=${typeof data.body}. Upgrade the smee server.`,
+      );
+      return;
+    }
+
+    const body = Buffer.from(data.body, "base64").toString("utf-8");
     delete data.body;
+    delete data.bodyEncoding;
 
     const headers: { [key: string]: any } = {};
 
@@ -92,7 +100,6 @@ class SmeeClient {
     // See https://github.com/probot/smee-client/issues/187
     delete headers["host"];
     headers["content-length"] = Buffer.byteLength(body);
-    headers["content-type"] = "application/json";
 
     try {
       const response = await this.#fetch(target, {
