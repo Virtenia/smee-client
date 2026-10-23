@@ -31,10 +31,8 @@ describe("forward", () => {
 
     smeeServer.emit(
       {
-        body: {
-          foo: "bar",
-          baz: "qux",
-        },
+        body: Buffer.from('{"foo":"bar","baz":"qux"}').toString("base64"),
+        bodyEncoding: "base64",
       },
       "message",
     );
@@ -74,10 +72,8 @@ describe("forward", () => {
 
     smeeServer.emit(
       {
-        body: {
-          foo: "bar",
-          baz: "qux",
-        },
+        body: Buffer.from('{"foo":"bar","baz":"qux"}').toString("base64"),
+        bodyEncoding: "base64",
       },
       "message",
     );
@@ -117,10 +113,8 @@ describe("forward", () => {
 
     smeeServer.emit(
       {
-        body: {
-          foo: "bar",
-          baz: "qux",
-        },
+        body: Buffer.from('{"foo":"bar","baz":"qux"}').toString("base64"),
+        bodyEncoding: "base64",
       },
       "message",
     );
@@ -131,10 +125,8 @@ describe("forward", () => {
 
     smeeServer.emit(
       {
-        body: {
-          foo: "bar",
-          baz: "qux",
-        },
+        body: Buffer.from('{"foo":"bar","baz":"qux"}').toString("base64"),
+        bodyEncoding: "base64",
       },
       "message",
     );
@@ -173,10 +165,8 @@ describe("forward", () => {
 
     smeeServer.emit(
       {
-        body: {
-          foo: "bar",
-          baz: "qux",
-        },
+        body: Buffer.from('{"foo":"bar","baz":"qux"}').toString("base64"),
+        bodyEncoding: "base64",
       },
       "message",
     );
@@ -189,10 +179,8 @@ describe("forward", () => {
 
     smeeServer.emit(
       {
-        body: {
-          foo: "bar",
-          baz: "qux",
-        },
+        body: Buffer.from('{"foo":"bar","baz":"qux"}').toString("base64"),
+        bodyEncoding: "base64",
       },
       "message",
     );

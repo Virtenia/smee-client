@@ -16,6 +16,7 @@
     "build": "tsc -p tsconfig.json",
     "lint": "prettier --check \"index.ts\" \"test/**/*.ts\" bin/smee.js package.json tsconfig.json --end-of-line auto",
     "lint:fix": "prettier --write \"index.ts\" \"test/**/*.ts\" bin/smee.js package.json tsconfig.json --end-of-line auto",
+    "license-check": "license-checker-rseidelsohn --production --summary --onlyAllow=\"0BSD;Apache-2.0;Apache 2.0;Python-2.0;BSD-2-Clause;BSD-3-Clause;ISC;MIT\"",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:dev": "vitest --ui --coverage"
@@ -27,23 +28,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "eventsource": "^4.0.0",
-    "undici": "^7.0.0"
+    "eventsource": "^5.1.3",
+    "undici": "^8.12.3"
   },
   "devDependencies": {
     "@octokit/tsconfig": "^4.0.0",
-    "@types/node": "^24.0.0",
-    "@vitest/coverage-v8": "^4.0.0",
-    "get-port": "^7.1.0",
-    "prettier": "^3.1.0",
-    "typescript": "^5.0.0",
-    "vitest": "^4.0.0"
+    "@types/node": "^24.19.2",
+    "@vitest/coverage-v8": "^5.0.5",
+    "@vitest/ui": "^5.0.5",
+    "get-port": "^7.2.0",
+    "license-checker-rseidelsohn": "^4.4.2",
+    "prettier": "^3.9.10",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
   },
   "engines": {
-    "node": "^20.18 || >= 22"
-  },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "node": ">=22.19.0"
   }
 }

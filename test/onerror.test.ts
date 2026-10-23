@@ -75,11 +75,11 @@ describe("onerror", () => {
     expect(typeof smeeClient.onerror).toBe("function");
 
     expect(logger.errorCalls.length).toBe(2);
-    expect(logger.errorCalls[0][0]).toBe("Custom error handler");
+    expect(logger.errorCalls[0][0]).toBe("Error in connection");
     expect(logger.errorCalls[0][1].message).toBe(
       "TypeError: terminated: other side closed",
     );
-    expect(logger.errorCalls[1][0]).toBe("Error in connection");
+    expect(logger.errorCalls[1][0]).toBe("Custom error handler");
     expect(logger.errorCalls[1][1].message).toBe(
       "TypeError: terminated: other side closed",
     );
@@ -166,11 +166,11 @@ describe("onerror", () => {
 
     expect(logger.errorCalls.length).toBe(2);
 
-    expect(logger.errorCalls[0][0]).toBe("Custom error handler");
+    expect(logger.errorCalls[0][0]).toBe("Error in connection");
     expect(logger.errorCalls[0][1].message).toBe(
       "TypeError: terminated: other side closed",
     );
-    expect(logger.errorCalls[1][0]).toBe("Error in connection");
+    expect(logger.errorCalls[1][0]).toBe("Custom error handler");
     expect(logger.errorCalls[1][1].message).toBe(
       "TypeError: terminated: other side closed",
     );

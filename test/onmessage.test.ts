@@ -39,7 +39,10 @@ describe("onmessage", () => {
     smeeServer.emit(
       {
         query: {},
-        body: JSON.stringify({ message: "test" }),
+        body: Buffer.from(JSON.stringify({ message: "test" })).toString(
+          "base64",
+        ),
+        bodyEncoding: "base64",
       },
       "message",
     );
@@ -96,7 +99,10 @@ describe("onmessage", () => {
     smeeServer.emit(
       {
         query: {},
-        body: JSON.stringify({ message: "test" }),
+        body: Buffer.from(JSON.stringify({ message: "test" })).toString(
+          "base64",
+        ),
+        bodyEncoding: "base64",
       },
       "message",
     );
@@ -153,7 +159,10 @@ describe("onmessage", () => {
     smeeServer.emit(
       {
         query: {},
-        body: JSON.stringify({ message: "test" }),
+        body: Buffer.from(JSON.stringify({ message: "test" })).toString(
+          "base64",
+        ),
+        bodyEncoding: "base64",
       },
       "message",
     );

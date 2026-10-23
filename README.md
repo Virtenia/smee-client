@@ -6,6 +6,8 @@
 
 ## Installation
 
+Requires Node.js 22.19.0 or newer.
+
 Install the client with:
 
 ```sh
@@ -38,7 +40,7 @@ const smee = new SmeeClient({
 const events = await smee.start()
 
 // Stop forwarding events
-await smee.close()
+await smee.stop()
 ```
 
 #### Proxy Servers

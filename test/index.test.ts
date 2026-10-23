@@ -2,6 +2,7 @@ import { describe, test, expect } from "vitest";
 
 import { VoidLogger } from "./helpers/void-logger.ts";
 import { WebhookServer } from "./helpers/webhook-server.ts";
+import { SmeeServer } from "./helpers/smee-server.ts";
 
 import Client from "../index.ts";
 import { getPayload } from "./helpers/get-payload.ts";
@@ -112,7 +113,9 @@ describe("client", () => {
       await server.start();
 
       const target = server.url;
-      const source = await Client.createChannel();
+      const smeeServer = new SmeeServer();
+      await smeeServer.start();
+      const source = smeeServer.channelUrl;
 
       const client = new Client({
         source,
@@ -130,16 +133,21 @@ describe("client", () => {
         },
       });
 
-      await fetch(source, {
-        method: "POST",
-        body: JSON.stringify({ hello: "world" }),
-        headers: {
+      smeeServer.emit(
+        {
+          body: Buffer.from(JSON.stringify({ hello: "world" })).toString(
+            "base64",
+          ),
+          bodyEncoding: "base64",
           "content-type": "application/json",
         },
-      });
+        "message",
+      );
 
       await finishedPromise.promise;
 
+      await client.stop();
+      await smeeServer.stop();
       await server.stop();
 
       expect(callCount).toBe(2);

@@ -1,5 +1,11 @@
 {
   "extends": [
     "github>probot/.github"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "pinDigests": true
+    }
   ]
 }

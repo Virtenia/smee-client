@@ -8,12 +8,14 @@ import Client from "../index.ts";
 
 describe("queryForwarding", () => {
   test("by default forwards query parameters from source to target", async () => {
+    let requestCount = 0;
     const webhookServer = new WebhookServer({
       handler: async (req, res) => {
         const url = new URL(req.url!, `http://${req.headers.host}`);
 
         expect(url.searchParams.get("foo")).toBe("bar");
         expect(url.searchParams.get("baz")).toBe("qux");
+        requestCount++;
         res.writeHead(200).end("OK");
       },
     });
@@ -32,7 +34,8 @@ describe("queryForwarding", () => {
 
     smeeServer.emit(
       {
-        body: {},
+        body: Buffer.from("{}").toString("base64"),
+        bodyEncoding: "base64",
         query: {
           foo: "bar",
           baz: "qux",
@@ -41,18 +44,22 @@ describe("queryForwarding", () => {
       "message",
     );
 
+    await expect.poll(() => requestCount).toBe(1);
+
     await smeeClient.stop();
     await smeeServer.stop();
     await webhookServer.stop();
   });
 
   test("forwards query parameters from source to target", async () => {
+    let requestCount = 0;
     const webhookServer = new WebhookServer({
       handler: async (req, res) => {
         const url = new URL(req.url!, `http://${req.headers.host}`);
 
         expect(url.searchParams.get("foo")).toBe("bar");
         expect(url.searchParams.get("baz")).toBe("qux");
+        requestCount++;
         res.writeHead(200).end("OK");
       },
     });
@@ -72,7 +79,8 @@ describe("queryForwarding", () => {
 
     smeeServer.emit(
       {
-        body: {},
+        body: Buffer.from("{}").toString("base64"),
+        bodyEncoding: "base64",
         query: {
           foo: "bar",
           baz: "qux",
@@ -81,18 +89,22 @@ describe("queryForwarding", () => {
       "message",
     );
 
+    await expect.poll(() => requestCount).toBe(1);
+
     await smeeClient.stop();
     await smeeServer.stop();
     await webhookServer.stop();
   });
 
   test("does not forward query parameters from source to target if queryForwarding is false", async () => {
+    let requestCount = 0;
     const webhookServer = new WebhookServer({
       handler: async (req, res) => {
         const url = new URL(req.url!, `http://${req.headers.host}`);
 
         expect(url.searchParams.get("foo")).toBe(null);
         expect(url.searchParams.get("baz")).toBe(null);
+        requestCount++;
         res.writeHead(200).end("OK");
       },
     });
@@ -112,7 +124,8 @@ describe("queryForwarding", () => {
 
     smeeServer.emit(
       {
-        body: {},
+        body: Buffer.from("{}").toString("base64"),
+        bodyEncoding: "base64",
         query: {
           foo: "bar",
           baz: "qux",
@@ -120,6 +133,8 @@ describe("queryForwarding", () => {
       },
       "message",
     );
+
+    await expect.poll(() => requestCount).toBe(1);
 
     await smeeClient.stop();
     await smeeServer.stop();
