@@ -120,3 +120,5 @@ jobs:
         run: npm run test
       - name: Build
         run: npm run build
+      - name: Verify committed build artifacts
+        run: git diff --exit-code -- index.js index.js.map index.d.ts
